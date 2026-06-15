@@ -14,10 +14,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api-football': {
-        target: 'https://api-football-v1.p.rapidapi.com/v3',
+      '/api-sports': {
+        target: 'https://v3.football.api-sports.io',
         changeOrigin: true,
-        rewrite: (p) => p.replace(/^\/api-football/, ''),
+        rewrite: (p) => p.replace(/^\/api-sports/, ''),
       },
     },
   },

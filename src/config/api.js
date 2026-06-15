@@ -3,10 +3,9 @@ import axios from 'axios';
 export const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
 const apiClient = axios.create({
-  baseURL: '/api-football',
+  baseURL: import.meta.env.DEV ? '/api-sports' : 'https://v3.football.api-sports.io',
   headers: {
-    'X-RapidAPI-Key': import.meta.env.VITE_RAPIDAPI_KEY || '',
-    'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+    'x-apisports-key': import.meta.env.VITE_API_KEY || '',
   },
   timeout: 10000,
 });
