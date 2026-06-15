@@ -8,8 +8,8 @@ export function useStandings() {
   const query = useQuery({
     queryKey: ['standings'],
     queryFn: api.getStandings,
-    staleTime: 10 * 60 * 1000,
-    refetchInterval: 10 * 60 * 1000,
+    staleTime: 60 * 60 * 1000,
+    refetchInterval: false,
     enabled: !USE_MOCK,
   });
 

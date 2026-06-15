@@ -9,9 +9,9 @@ export function useLiveMatches() {
   const query = useQuery({
     queryKey: ['fixtures', 'live'],
     queryFn: api.getLiveFixtures,
-    refetchInterval: 30_000,
+    refetchInterval: 5 * 60_000,
     refetchIntervalInBackground: false,
-    staleTime: 25_000,
+    staleTime: 4 * 60_000,
     enabled: !USE_MOCK,
   });
 
