@@ -1,5 +1,11 @@
 import apiClient from '@/config/api';
 import { WC_LEAGUE_ID, WC_SEASON } from '@/constants/bettingThresholds';
+import {
+  normalizeFixture,
+  normalizeFixtures,
+  normalizeStandings,
+  normalizeTeamProfile,
+} from './normalize';
 
 const norm = (data) => data?.response ?? [];
 
@@ -7,12 +13,12 @@ export async function getFixtures(params = {}) {
   const { data } = await apiClient.get('/fixtures', {
     params: { league: WC_LEAGUE_ID, season: WC_SEASON, ...params },
   });
-  return norm(data);
+  return normalizeFixtures(norm(data));
 }
 
 export async function getFixtureById(id) {
   const { data } = await apiClient.get('/fixtures', { params: { id } });
-  return norm(data)[0] ?? null;
+  return normalizeFixture(norm(data)[0] ?? null);
 }
 
 export async function getFixtureStatistics(fixtureId) {
@@ -40,12 +46,12 @@ export async function getLiveFixtures() {
   const { data } = await apiClient.get('/fixtures', {
     params: { live: 'all', league: WC_LEAGUE_ID },
   });
-  return norm(data);
+  return normalizeFixtures(norm(data));
 }
 
 export async function getTeam(teamId) {
   const { data } = await apiClient.get('/teams', { params: { id: teamId } });
-  return norm(data)[0] ?? null;
+  return normalizeTeamProfile(norm(data)[0] ?? null);
 }
 
 export async function getTeamStatistics(teamId) {
@@ -59,14 +65,15 @@ export async function getH2H(team1Id, team2Id) {
   const { data } = await apiClient.get('/fixtures', {
     params: { h2h: `${team1Id}-${team2Id}`, last: 10 },
   });
-  return norm(data);
+  return normalizeFixtures(norm(data));
 }
 
 export async function getStandings() {
   const { data } = await apiClient.get('/standings', {
     params: { league: WC_LEAGUE_ID, season: WC_SEASON },
   });
-  return norm(data)[0]?.league?.standings ?? [];
+  const leagueStandings = norm(data)[0]?.league?.standings ?? [];
+  return normalizeStandings(leagueStandings);
 }
 
 export async function getPredictions(fixtureId) {

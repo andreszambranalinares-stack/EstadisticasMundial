@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { USE_MOCK } from '@/config/api';
 import * as api from '@/services/footballApi';
+import { normalizeTeamStats } from '@/services/normalize';
+import { getTeamGroup } from '@/constants/teamMappings';
 import { MOCK_TEAMS, MOCK_PLAYERS } from '@/services/mockData';
 
 export function useTeam(teamId) {
@@ -37,9 +39,15 @@ export function useTeam(teamId) {
     };
   }
 
+  const profile = teamQuery.data ?? null;
+  const stats = statsQuery.data ? normalizeTeamStats(statsQuery.data, profile) : null;
+  const mergedTeam = profile
+    ? { ...profile, group: getTeamGroup(profile.name), ...(stats || {}) }
+    : null;
+
   return {
-    team: teamQuery.data,
-    stats: statsQuery.data,
+    team: mergedTeam,
+    stats: stats ?? mergedTeam,
     players: playersQuery.data ?? [],
     isLoading: teamQuery.isLoading,
     error: teamQuery.error,

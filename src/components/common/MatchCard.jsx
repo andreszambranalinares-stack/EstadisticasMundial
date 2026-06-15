@@ -7,6 +7,7 @@ import { useFixturePredictions } from '@/hooks/usePredictions';
 import { formatPercent } from '@/lib/formatters';
 
 export default function MatchCard({ fixture, showPredictions = false }) {
+  if (!fixture?.homeTeam || !fixture?.awayTeam) return null;
   const { homeTeam, awayTeam, goals, status, date, round } = fixture;
   const isLive = ['1H', '2H', 'HT', 'ET', 'PEN'].includes(status?.short);
   const isFinished = status?.short === 'FT' || status?.short === 'AET';
@@ -25,7 +26,7 @@ export default function MatchCard({ fixture, showPredictions = false }) {
       <div className="flex items-center justify-between gap-3">
         {/* Home team */}
         <div className="flex-1 flex flex-col items-center gap-2 text-center">
-          <FlagCircle teamName={homeTeam.name} size="md" />
+          <FlagCircle teamName={homeTeam.name} logoUrl={homeTeam.logo} size="md" />
           <span className="text-xs font-semibold text-slate-200 leading-tight">
             {getSpanishName(homeTeam.name)}
           </span>
@@ -63,7 +64,7 @@ export default function MatchCard({ fixture, showPredictions = false }) {
 
         {/* Away team */}
         <div className="flex-1 flex flex-col items-center gap-2 text-center">
-          <FlagCircle teamName={awayTeam.name} size="md" />
+          <FlagCircle teamName={awayTeam.name} logoUrl={awayTeam.logo} size="md" />
           <span className="text-xs font-semibold text-slate-200 leading-tight">
             {getSpanishName(awayTeam.name)}
           </span>

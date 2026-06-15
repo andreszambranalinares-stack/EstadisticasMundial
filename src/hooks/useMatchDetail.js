@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { USE_MOCK } from '@/config/api';
 import * as api from '@/services/footballApi';
+import { normalizeStatistics, normalizeEvents, normalizeLineups } from '@/services/normalize';
 import {
   MOCK_FIXTURES,
   MOCK_MATCH_STATS,
@@ -54,11 +55,14 @@ export function useMatchDetail(matchId) {
     };
   }
 
+  const realFixture = fixtureQuery.data ?? null;
+  const homeId = realFixture?.homeTeam?.id;
+
   return {
-    fixture: fixtureQuery.data,
-    stats: statsQuery.data,
-    events: eventsQuery.data ?? [],
-    lineups: lineupsQuery.data ?? [],
+    fixture: realFixture,
+    stats: statsQuery.data ? normalizeStatistics(statsQuery.data, homeId) : null,
+    events: eventsQuery.data ? normalizeEvents(eventsQuery.data, homeId) : [],
+    lineups: lineupsQuery.data ? normalizeLineups(lineupsQuery.data) : [],
     isLoading: fixtureQuery.isLoading,
     error: fixtureQuery.error,
   };

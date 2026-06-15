@@ -8,25 +8,36 @@ const SIZES = {
   xl: { container: 'w-32 h-32', border: 'border-[3px]' },
 };
 
-export default function FlagCircle({ teamName, size = 'md', className = '' }) {
+export default function FlagCircle({ teamName, logoUrl, size = 'md', className = '' }) {
   const isoCode = getIsoCode(teamName);
   const { container, border } = SIZES[size] ?? SIZES.md;
+  const unknown = isoCode === 'un';
 
   return (
     <div
       className={`${container} rounded-full overflow-hidden ${border} border-white/20 shadow-lg flex-shrink-0 bg-surface-3 ${className}`}
     >
-      <span
-        className={`fi fi-${isoCode}`}
-        style={{
-          display: 'block',
-          width: '100%',
-          height: '100%',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-        title={teamName}
-      />
+      {unknown && logoUrl ? (
+        <img
+          src={logoUrl}
+          alt={teamName}
+          title={teamName}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      ) : (
+        <span
+          className={`fi fi-${isoCode}`}
+          style={{
+            display: 'block',
+            width: '100%',
+            height: '100%',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+          title={teamName}
+        />
+      )}
     </div>
   );
 }

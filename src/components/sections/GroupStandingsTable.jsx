@@ -56,7 +56,7 @@ export default function GroupStandingsTable({ group, teams = [], compact = false
                 </td>
                 <td className="px-2 py-2.5">
                   <Link to={`/equipos/${team.id}`} className="flex items-center gap-2 hover:text-white transition-colors">
-                    <FlagCircle teamName={team.name} size="xs" />
+                    <FlagCircle teamName={team.name} logoUrl={team.logo} size="xs" />
                     <span className="font-medium text-slate-200 hover:text-white transition-colors leading-tight">
                       {getSpanishName(team.name)}
                     </span>

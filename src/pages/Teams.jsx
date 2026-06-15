@@ -36,7 +36,7 @@ export default function Teams() {
                   className="flex flex-col items-center gap-2 hover:scale-105 transition-transform group"
                 >
                   <div className="relative">
-                    <FlagCircle teamName={team.name} size="lg" />
+                    <FlagCircle teamName={team.name} logoUrl={team.logo} size="lg" />
                     {rank === 1 && (
                       <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent-gold rounded-full flex items-center justify-center text-[9px] font-black text-surface">1</span>
                     )}
