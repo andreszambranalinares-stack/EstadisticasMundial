@@ -1,0 +1,76 @@
+@import 'flag-icons/css/flag-icons.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-white font-sans antialiased;
+    min-height: 100vh;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-3 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-surface-4;
+  }
+}
+
+/* Fix flag-icons to fill circular containers */
+.fi {
+  background-size: cover !important;
+  background-position: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  background-repeat: no-repeat !important;
+}
+
+@layer components {
+  .card {
+    @apply bg-surface-2 rounded-xl border border-surface-3/50;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-200 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply bg-accent hover:bg-accent-dark text-white font-medium px-4 py-2 rounded-lg transition-colors;
+  }
+
+  .btn-ghost {
+    @apply text-slate-400 hover:text-white hover:bg-surface-3 px-3 py-2 rounded-lg transition-colors;
+  }
+
+  .badge-live {
+    @apply inline-flex items-center gap-1.5 bg-bet-red/20 text-bet-red border border-bet-red/40 text-xs font-bold px-2.5 py-1 rounded-full;
+  }
+
+  .section-title {
+    @apply text-xl font-bold text-white;
+  }
+
+  .stat-label {
+    @apply text-xs font-medium text-slate-400 uppercase tracking-wider;
+  }
+}
